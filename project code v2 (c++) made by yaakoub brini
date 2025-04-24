@@ -1,0 +1,250 @@
+// Constants
+const int button1 = 2;          // 1st button -> Blue LED 
+const int button2 = 3;          // 2nd button -> Yellow LED
+const int button3 = 4;          // 3rd button -> Green LED
+
+const int led1 = 7;             // Blue LED
+const int led2 = 8;             // Yellow LED
+const int led3 = 9;             // Green LED
+
+const int buzzer = 12;          // Buzzer Output
+const int tones[] = {1915, 1700, 1519, 2700}; // 3 tones + 1 fail tone
+
+// Variables
+int buttonState[] = {0, 0, 0};         
+int lastButtonState[] = {0, 0, 0};     
+int buttonPushCounter[] = {0, 0, 0}; 
+
+void playTone(int tone, int duration) {
+  for (long i = 0; i < duration * 1000L; i += tone * 2) {
+    digitalWrite(buzzer, HIGH);
+    delayMicroseconds(tone);
+    digitalWrite(buzzer, LOW);
+    delayMicroseconds(tone);
+  }
+}
+
+// 🎶 New intro: Spooky Scary Skeletons with LED fade in/out
+void playIntroWithFadingLEDs() {
+  // Notes from "Spooky Scary Skeletons" theme (simplified)
+  int melody[] = { 659, 659, 587, 587, 523, 523, 659, 659, 523, 587 }; // Fast spooky melody
+  int noteCount = sizeof(melody) / sizeof(melody[0]);
+  int duration = 250;  // Quick tempo (250ms per note)
+
+  for (int i = 0; i < noteCount; i++) {
+    // Fade in
+    for (int b = 0; b <= 255; b += 5) {
+      analogWrite(led1, b);
+      analogWrite(led2, b);
+      analogWrite(led3, b);
+      delay(5);
+    }
+
+    if (melody[i] != 0) {
+      tone(buzzer, melody[i]);
+    }
+    delay(duration);
+
+    // Fade out
+    for (int b = 255; b >= 0; b -= 5) {
+      analogWrite(led1, b);
+      analogWrite(led2, b);
+      analogWrite(led3, b);
+      delay(5);
+    }
+
+    noTone(buzzer);
+    delay(50); // brief pause between notes
+  }
+
+  // Ensure LEDs are off at the end
+  analogWrite(led1, 0);
+  analogWrite(led2, 0);
+  analogWrite(led3, 0);
+}
+
+// 🎶 "Death Note" effect when player loses
+void playDeathNote() {
+  // Play an eerie and ominous tone
+  tone(buzzer, 400);  // Low tone for spooky effect
+  delay(1000);        // Hold the tone for 1 second
+
+  // Blink LEDs in red (more dramatic)
+  for (int i = 0; i < 3; i++) {
+    analogWrite(led1, 255);  // Full red
+    analogWrite(led2, 0);
+    analogWrite(led3, 0);
+    delay(200);
+    analogWrite(led1, 0);
+    delay(200);
+  }
+
+  // Play a final "death" sound
+  tone(buzzer, 350);  // A bit higher tone for impact
+  delay(500);
+  noTone(buzzer);
+
+  // Flash the LEDs in red at the end
+  for (int i = 0; i < 5; i++) {
+    analogWrite(led1, 255);
+    analogWrite(led2, 0);
+    analogWrite(led3, 0);
+    delay(100);
+    analogWrite(led1, 0);
+    delay(100);
+  }
+
+  // Ensure LEDs are off at the end
+  analogWrite(led1, 0);
+  analogWrite(led2, 0);
+  analogWrite(led3, 0);
+}
+
+void setup() {
+  randomSeed(analogRead(0));
+
+  pinMode(button1, INPUT);
+  pinMode(button2, INPUT);
+  pinMode(button3, INPUT);
+
+  pinMode(led1, OUTPUT);
+  pinMode(led2, OUTPUT);
+  pinMode(led3, OUTPUT);
+
+  pinMode(buzzer, OUTPUT);
+
+  // 🎬 Run intro when Arduino starts
+  playIntroWithFadingLEDs();
+}
+
+int game_on = 0;
+int wait = 0;
+int currentlevel = 1;
+long rand_num = 0;
+int rando = 0;
+int butwait = 500;
+int ledtime = 500;
+int n_levels = 10;
+int pinandtone = 0;
+int right = 0;
+int speedfactor = 5;
+int leddelay = 200;
+
+void loop() {
+  int n_array[n_levels];
+  int u_array[n_levels];
+  int i;
+
+  if (game_on == 0) {
+    for (i = 0; i < n_levels; i++) {
+      n_array[i] = 0;
+      u_array[i] = 0;
+      rand_num = random(1, 151);
+      if (rand_num <= 50)
+        rando = 0;
+      else if (rand_num <= 100)
+        rando = 1;
+      else
+        rando = 2;
+
+      n_array[i] = rando;
+    }
+    game_on = 1;
+  }
+
+  if (wait == 0) {
+    delay(200);
+    for (i = 0; i < currentlevel; i++) {
+      leddelay = ledtime / (1 + (speedfactor / n_levels) * (currentlevel - 1));
+      pinandtone = n_array[i];
+      digitalWrite(pinandtone + 7, HIGH);
+      playTone(tones[pinandtone], leddelay);
+      digitalWrite(pinandtone + 7, LOW);
+      delay(100 / speedfactor);
+    }
+    wait = 1;
+  }
+
+  i = 0;
+  int buttonchange = 0;
+  int j = 0;
+
+  while (j < currentlevel) {
+    while (buttonchange == 0) {
+      for (i = 0; i < 3; i++) {
+        buttonState[i] = digitalRead(i + 2);
+        buttonchange += buttonState[i];
+      }
+    }
+
+    for (i = 0; i < 3; i++) {
+      if (buttonState[i] == HIGH) {
+        digitalWrite(i + 7, HIGH);
+        playTone(tones[i], ledtime);
+        digitalWrite(i + 7, LOW);
+        wait = 0;
+        u_array[j] = i;
+        buttonState[i] = LOW;
+        buttonchange = 0;
+      }
+    }
+
+    if (u_array[j] == n_array[j]) {
+      j++;
+      right = 1;
+    } else {
+      right = 0;
+      j = currentlevel;
+      wait = 0;
+    }
+  }
+
+  if (right == 0) {
+    // Trigger death note on loss
+    playDeathNote();
+    
+    // Reset game after "Death Note"
+    delay(300);
+    game_on = 0;
+    currentlevel = 1;
+    for (i = 0; i < 3; i++) {
+      digitalWrite(i + 7, HIGH);
+    }
+    playTone(tones[3], ledtime);
+    for (i = 0; i < 3; i++) {
+      digitalWrite(i + 7, LOW);
+    }
+    delay(200);
+    for (i = 0; i < 3; i++) {
+      digitalWrite(i + 7, HIGH);
+    }
+    playTone(tones[3], ledtime);
+    for (i = 0; i < 3; i++) {
+      digitalWrite(i + 7, LOW);
+    }
+    delay(500);
+  }
+
+  if (right == 1) {
+    currentlevel++;
+    wait = 0;
+  }
+
+  if (currentlevel == n_levels) {
+    delay(500);
+    int notes[] = {2, 2, 1, 2};
+    int tempo[] = {200, 200, 200, 600};
+    int breaks[] = {100, 100, 100, 200};
+    for (i = 0; i < 4; i++) {
+      int note = notes[i];
+      digitalWrite(note + 7, HIGH);
+      playTone(tones[note], tempo[i]);
+      digitalWrite(note + 7, LOW);
+      delay(breaks[i]);
+    }
+    game_on = 0;
+    currentlevel = 1;
+    n_levels += 2;
+    speedfactor += 1;
+  }
+}
