@@ -18,7 +18,7 @@ this project is all about creating a simple game to test your memory/ce projet c
 
 -Ritej sousi
 
-#PARTS
+#PARTS:
 
 1x Arduino UNO
 
