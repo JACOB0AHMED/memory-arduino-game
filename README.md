@@ -5,7 +5,7 @@ this project is all about creating a simple game to test your memory/ce projet c
 
 #Creaters:
 
-<span style="color:gold"><strong>Ahmed Yaakoub Brini</strong></span>
+<span style="color:gold"><strong>-Ahmed Yaakoub Brini</strong></span>
 
 -tasnim sghayr 
 
