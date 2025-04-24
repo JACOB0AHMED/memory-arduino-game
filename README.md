@@ -17,3 +17,18 @@ this project is all about creating a simple game to test your memory/ce projet c
 -Momen bou afya
 
 -Ritej sousi
+
+#PARTS
+1x Arduino UNO
+
+8x 220 Ohm Resistor
+
+4x LED’s
+
+4x Pushbuttons
+
+1x Buzzer
+
+1x Breadboard
+
+Jumper Cables
