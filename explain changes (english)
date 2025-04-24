@@ -1,4 +1,4 @@
-what did yaakoub added
+what did yaakoub added:
 
 1. Introduction of New Sound and LED Effects
 First Code: The first code introduces a new intro with a "Spooky Scary Skeletons" melody and a fade in/out effect for the LEDs. This is triggered when the game starts using the playIntroWithFadingLEDs() function.
