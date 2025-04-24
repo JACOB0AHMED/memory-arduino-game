@@ -19,6 +19,7 @@ this project is all about creating a simple game to test your memory/ce projet c
 -Ritej sousi
 
 #PARTS
+
 1x Arduino UNO
 
 8x 220 Ohm Resistor
