@@ -1,16 +1,15 @@
-                  Arduino
-             +----------+
-             |          |
-Button 1 --->| 2        |
-Button 2 --->| 3        |
-Button 3 --->| 4        |
-             |          |
-Resistor 1-->| 7 ---> LED 1 (Blue)
-Resistor 2-->| 8 ---> LED 2 (Yellow)
-Resistor 3-->| 9 ---> LED 3 (Green)
-             |          |
-Buzzer    --->| 12       |
-             |          |
-       GND---| GND      |
-             |          |
-             +----------+
+                +--------------------------+
+                |         Arduino           |
+                |                          |
+  Button 1 --->| Pin 2                    |
+  Button 2 --->| Pin 3                    |
+  Button 3 --->| Pin 4                    |
+                |                          |
+  Resistor 1-->| Pin 7  ---> LED 1 (Blue) |
+  Resistor 2-->| Pin 8  ---> LED 2 (Yellow)|
+  Resistor 3-->| Pin 9  ---> LED 3 (Green) |
+                |                          |
+  Buzzer------>| Pin 12                   |
+                |                          |
+              GND--| GND                   |
+                +--------------------------+
