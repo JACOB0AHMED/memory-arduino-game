@@ -34,3 +34,7 @@ this project is all about creating a simple game to test your memory/ce projet c
 1x Breadboard
 
 Jumper Cables
+
+ENJOY!
+
+![Image](https://github.com/user-attachments/assets/381dcdaa-3428-4fc6-af79-0b6d005c0434)
