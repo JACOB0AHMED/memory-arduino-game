@@ -15,3 +15,5 @@ this project is all about creating a simple game to test your memory/ce projet c
 -Amna hamadi
 
 -Momen bou afya
+
+-Ritej sousi
