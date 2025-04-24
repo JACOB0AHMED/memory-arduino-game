@@ -4,7 +4,7 @@ this project is all about creating a simple game to test your memory/ce projet c
 ![Image](https://github.com/user-attachments/assets/f5e580a0-1210-4a84-bb40-c6c0d7e57742)
 
 #Creaters:
-<p style="color:red;">-ahmed yaakoub brini</p>
+<p style="color:red;">-Ahmed yaakoub brini</p>
 
 -tasnim sghayr 
 
@@ -12,4 +12,6 @@ this project is all about creating a simple game to test your memory/ce projet c
 
 -taher bouzir 
 
--
+-Amna hamadi
+
+-Momen bou afya
