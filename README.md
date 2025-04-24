@@ -1,3 +1,3 @@
-Arduino – Memory Game
+#Arduino – Memory Game
 his project is all about creating a simple game to test your memory
-![Image](https://github.com/user-attachments/assets/aa0aab2d-baba-4f40-91ef-f04ec14df1f7)
+![Image](https://github.com/user-attachments/assets/f5e580a0-1210-4a84-bb40-c6c0d7e57742)
